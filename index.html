@@ -12,7 +12,7 @@
   </head>
   <body >
     <header class="d-flex flex-row container my-1  mx-auto bg-info justify-content-center text-white rounded-3  ">
-        <h1 class="  ">Expenses Tracker</h1>
+        <h2 class="  ">Track Your Expense</h2>
     </header>
     <main class="d-flex flex-row container mx-auto bg-primary  gap-5    px-3 py-5 rounded-3  justify-content-between  ">
         <div class="left- d-flex flex-column w-50 border-end border-2  pe-5 ps-3       bg-primary">
@@ -31,14 +31,35 @@
               <button type="button" class="btn btn-warning ">Add</button>
         </div>
         <div class="right- d-flex flex-column w-50  ">
-            <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                <label for="floatingInput">Email address</label>
-              </div>
-              <div class="form-floating">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                <label for="floatingPassword">Password</label>
-              </div>
+            <table class="table bg-white  ">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Handle</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">Larry the Bird</td>
+                    <td>@twitter</td>
+                  </tr>
+                </tbody>
+              </table>
         </div>
     </main>
     <footer class="d-flex flex-row container my-1  mx-auto bg-info justify-content-center text-white rounded-3  ">
