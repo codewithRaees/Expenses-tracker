@@ -14,7 +14,7 @@ function App() {
     <main>
    <Header/>
    <div className='expense-tracker container bg-primary py-5 d-flex  justify-content-center text-white py-3 my-1  rounded-3 '>
-   <ExpenseForm/>
+   <ExpenseForm  setexpenses={setexpenses}/>
    <ExpenseTable expenses = {expenses}/>
    </div>
    <Footer/>
