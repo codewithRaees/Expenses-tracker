@@ -1,33 +1,34 @@
 import React, { useState } from 'react'
 
 const ExpenseForm = ({setexpenses}) => {
-
+  const [title , setTitle] = useState('')
+  const [category , setCategory] = useState('')
+  const [amount , setAmount] = useState('')
   const handleform = (e) => {
+    
     e.preventDefault()
-   const expense = {...getFormData(e.target), id:crypto.randomUUID()}
+   const expense = {title, category,amount, id:crypto.randomUUID()}
     setexpenses((prestate) => [...prestate ,expense])
-    e.target.reset()
+   setTitle('')
+   setCategory('')
+   setAmount('')
   }
-  const getFormData = (form) => {
-    const formData = new FormData(form)
-    const data = {}
-      for (const [key , value] of formData.entries()) {
-      
-      data[key] = value
-    }
-    return data
-  }
+
   return (
     <>
       <div className="expense-form d-flex flex-column bg-primary">
         <form className="expense-form" onSubmit={handleform}>
           <div className="input-container">
             <label htmlFor="title">Title</label>
-            <input id="title" name="title" type='text'/>
+            <input id="title" 
+             name='title' 
+             value={title} 
+             onChange={(e)=> setTitle(e.target.value)}/>
           </div>
           <div className="input-container">
             <label htmlFor="category">Category</label>
-            <select id='category' name="category">
+            <select id='category' name="category" value={category} 
+             onChange={(e)=> setCategory(e.target.value)}>
               <option value="" hidden>Select Category</option>
               <option value="grocery">Grocery</option>
               <option value="clothes">Clothes</option>
@@ -38,7 +39,8 @@ const ExpenseForm = ({setexpenses}) => {
           </div>
           <div className="input-container">
             <label htmlFor="amount">Amount</label>
-            <input id="amount" name="amount"/>
+            <input id="amount" name="amount" value={amount} 
+             onChange={(e)=> setAmount(e.target.value)}/>
           </div>
           <button  className="add-btn btn btn-warning ">Add</button>
         </form>
