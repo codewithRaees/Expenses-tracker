@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import Input from './Input'
+import Select from './Select'
 
 const ExpenseForm = ({setexpenses}) => {
   // const [title , setTitle] = useState('')
@@ -44,15 +46,30 @@ const handleChange = (e)=> {
     <>
       <div className="expense-form d-flex flex-column bg-primary">
         <form className="expense-form" onSubmit={handleform}>
-          <div className="input-container position-relative mb-4  ">
+          {/* <div className="input-container position-relative mb-4  ">
             <label htmlFor="title">Title</label>
             <input id="title" 
              name='title' 
              value={expense.title} 
              onChange={handleChange}/>
              <p className='error text-warning m-0 position-absolute top-100 '>{errors.title}</p>
-          </div>
-          <div className="input-container position-relative mb-4 ">
+          </div> */}
+          <Input label="Title" 
+                 id="title"
+                 name="title"
+                 value={expense.title}
+                 onChange={handleChange}
+                 errors={errors.title}
+          />
+          <Select label="Category" 
+                  defaultoption='Select Category'
+                  options={['Grocery','Clothes','Bills','Education','Medicine']}
+                 id="category"
+                 name="category"
+                 value={expense.category}
+                 onChange={handleChange}
+                 errors={errors.category}/>
+          {/* <div className="input-container position-relative mb-4 ">
             <label htmlFor="category">Category</label>
             <select id='category' name="category" value={expense.category} 
              onChange={handleChange}>
@@ -64,14 +81,20 @@ const handleChange = (e)=> {
               <option value="medicine">Medicine</option>
             </select>
             <p className='error text-warning m-0 position-absolute top-100 '>{errors.category}</p>
-          </div>
-          <div className="input-container position-relative mb-4 ">
+          </div> */}
+          {/* <div className="input-container position-relative mb-4 ">
             <label htmlFor="amount">Amount</label>
             <input id="amount" name="amount" value={expense.amount} 
              onChange={handleChange}/>
               <p className='error text-warning m-0 position-absolute top-100 '>{errors.amount}</p>
-
-          </div>
+          </div> */}
+          <Input label="Amount" 
+                 id="amount"
+                 name="amount"
+                 value={expense.amount}
+                 onChange={handleChange}
+                 errors={errors.amount}
+          />
           <button  className="add-btn btn btn-warning ">Add</button>
         </form>
 
