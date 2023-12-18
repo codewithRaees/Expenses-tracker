@@ -12,19 +12,31 @@ const ExpenseForm = ({setexpenses}) => {
     amount: ''
   })
   const[ errors , setErrors] = useState({})
+  const validationConfig = {
+    title:[
+          {required: true , message:'Please enter title'}, 
+          {minlength: 5 , message:'Please select category'}
+          ],
+    category: [{required: true , message:'Please enter title'}],
+    amount: [{required: true , message:'Please enter amount'}],
+  }
   
   const formValidation = (formdata)=>{
     const errorsData = {}
-    if(!formdata.title){
-      errorsData.title = "Title is required"
-    }
-    if(!formdata.category){
-      errorsData.category = "Select a categoery"
-    }
-    if(!formdata.amount){
-      errorsData.amount = "Amount is required"
-    }
-    setErrors(errorsData)
+   Object.entries(formdata).forEach(([key, value])=>
+   {
+    setErrors(key, value)
+   })
+    // if(!formdata.title){
+    //   errorsData.title = "Title is required"
+    // }
+    // if(!formdata.category){
+    //   errorsData.category = "Select a categoery"
+    // }
+    // if(!formdata.amount){
+    //   errorsData.amount = "Amount is required"
+    // }
+    // setErrors(errorsData)
     return errorsData
   }
   const handleform = (e) => {
