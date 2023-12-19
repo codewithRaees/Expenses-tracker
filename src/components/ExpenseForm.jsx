@@ -15,7 +15,7 @@ const ExpenseForm = ({setexpenses}) => {
   const validationConfig = {
     title:[
           {required: true , message:'Please enter title'}, 
-          {minlength: 5 , message:'Please select category'}
+          {minlength: 5 , message:'Value must be at least 5 charactors'}
           ],
     category: [{required: true , message:'Please enter title'}],
     amount: [{required: true , message:'Please enter amount'}],
@@ -25,7 +25,15 @@ const ExpenseForm = ({setexpenses}) => {
     const errorsData = {}
    Object.entries(formdata).forEach(([key, value])=>
    {
-    setErrors(key, value)
+    validationConfig[key].forEach((rule)=>{
+      console.log(rule)
+      if(rule.required && !value){
+        errorsData[key] = rule.message
+      }
+      if(rule.minlength && value.length < 5){
+        errorsData[key] = rule.message
+      }
+    })
    })
     // if(!formdata.title){
     //   errorsData.title = "Title is required"
@@ -36,7 +44,7 @@ const ExpenseForm = ({setexpenses}) => {
     // if(!formdata.amount){
     //   errorsData.amount = "Amount is required"
     // }
-    // setErrors(errorsData)
+    setErrors(errorsData)
     return errorsData
   }
   const handleform = (e) => {
