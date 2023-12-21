@@ -9,7 +9,8 @@ const ExpenseForm = ({setexpenses}) => {
   const [expense , setExpense] = useState({
     title:'',
     category: '',
-    amount: ''
+    amount: '',
+    email: ''
   })
   const[ errors , setErrors] = useState({})
   const validationConfig = {
@@ -19,20 +20,33 @@ const ExpenseForm = ({setexpenses}) => {
           ],
     category: [{required: true , message:'Please enter title'}],
     amount: [{required: true , message:'Please enter amount'}],
+
+    email: [{required: true , message:'Please enter email'},
+             {pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/ , message: 'Please enter valid email'},
+          
+           ],
   }
   
   const formValidation = (formdata)=>{
     const errorsData = {}
    Object.entries(formdata).forEach(([key, value])=>
    {
-    validationConfig[key].forEach((rule)=>{
+    validationConfig[key].some((rule)=>{
       console.log(rule)
       if(rule.required && !value){
         errorsData[key] = rule.message
+        return true
       }
       if(rule.minlength && value.length < 5){
         errorsData[key] = rule.message
+        return true
       }
+      if(rule.pattern && !rule.pattern.test(value))
+      {
+        errorsData[key] = rule.message
+        return true
+      }
+      
     })
    })
     // if(!formdata.title){
@@ -114,6 +128,13 @@ const handleChange = (e)=> {
                  value={expense.amount}
                  onChange={handleChange}
                  errors={errors.amount}
+          />
+          <Input label="email" 
+                 id="email"
+                 name="email"
+                 value={expense.email}
+                 onChange={handleChange}
+                 errors={errors.email}
           />
           <button  className="add-btn btn btn-warning ">Add</button>
         </form>
