@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const ExpenseTable = ({ expenses }) => {
-
+  const [category, setCategory] = useState('')
+  const filteredData = expenses.filter((expense) => expense.category.toLowerCase().includes(category) );
+  
+    const total =filteredData.reduce((accum , currunt) => accum + currunt.amount , 0 )
+  
   return (
     <div className="right-container d-flex flex-column w-100 ">
       <table className="table bg-white expense-table ">
@@ -10,7 +14,7 @@ const ExpenseTable = ({ expenses }) => {
 
             <th scope="col">Title</th>
             <th scope="col">
-              <select>
+              <select onChange={(e)=> setCategory(e.target.value.toLowerCase())}>
               <option value="">All</option>
               <option value="grocery">Grocery</option>
               <option value="clothes">Clothes</option>
@@ -50,7 +54,7 @@ const ExpenseTable = ({ expenses }) => {
         <tbody>
 
           {
-            expenses.map(({ id, title, category, amount }) =>
+            filteredData.map(({ id, title, category, amount }) =>
             (
               <tr key={id}>
                 <td>{title}</td>
@@ -64,7 +68,7 @@ const ExpenseTable = ({ expenses }) => {
             
                 <td colSpan={2}><b>&nbsp;Total :</b></td>
                 
-                <td><b>₹800</b></td>
+                <td><b>₹{total}</b></td>
               </tr>
               
         </tbody>

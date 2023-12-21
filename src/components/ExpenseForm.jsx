@@ -10,7 +10,7 @@ const ExpenseForm = ({setexpenses}) => {
     title:'',
     category: '',
     amount: '',
-    email: ''
+    // email: ''
   })
   const[ errors , setErrors] = useState({})
   const validationConfig = {
@@ -21,10 +21,10 @@ const ExpenseForm = ({setexpenses}) => {
     category: [{required: true , message:'Please enter title'}],
     amount: [{required: true , message:'Please enter amount'}],
 
-    email: [{required: true , message:'Please enter email'},
-             {pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/ , message: 'Please enter valid email'},
+    // email: [{required: true , message:'Please enter email'},
+    //          {pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/ , message: 'Please enter valid email'},
           
-           ],
+    //        ],
   }
   
   const formValidation = (formdata)=>{
@@ -129,13 +129,13 @@ const handleChange = (e)=> {
                  onChange={handleChange}
                  errors={errors.amount}
           />
-          <Input label="email" 
+          {/* <Input label="email" 
                  id="email"
                  name="email"
                  value={expense.email}
                  onChange={handleChange}
                  errors={errors.email}
-          />
+          /> */}
           <button  className="add-btn btn btn-warning ">Add</button>
         </form>
 
