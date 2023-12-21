@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
+import { useFilter } from './hooks/useFilter';
 
 const ExpenseTable = ({ expenses }) => {
   const [category, setCategory] = useState('')
   const filteredData = expenses.filter((expense) => expense.category.toLowerCase().includes(category) );
   
     const total =filteredData.reduce((accum , currunt) => accum + currunt.amount , 0 )
-  
+    const result = useFilter(filteredData)
+    console.log(result)
   return (
     <div className="right-container d-flex flex-column w-100 ">
       <table className="table bg-white expense-table ">
