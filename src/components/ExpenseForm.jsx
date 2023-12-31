@@ -2,16 +2,11 @@ import React, { useState } from 'react'
 import Input from './Input'
 import Select from './Select'
 
-const ExpenseForm = ({setexpenses}) => {
+const ExpenseForm = ({setexpenses , setExpense , expense,editingrowId,seteditingrowId}) => {
   // const [title , setTitle] = useState('')
   // const [category , setCategory] = useState('')
   // const [amount , setAmount] = useState('')
-  const [expense , setExpense] = useState({
-    title:'',
-    category: '',
-    amount: '',
-    // email: ''
-  })
+  
   const[ errors , setErrors] = useState({})
   const validationConfig = {
     title:[
@@ -19,7 +14,9 @@ const ExpenseForm = ({setexpenses}) => {
           {minlength: 5 , message:'Value must be at least 5 charactors'}
           ],
     category: [{required: true , message:'Please enter title'}],
-    amount: [{required: true , message:'Please enter amount'}],
+    amount: [{required: true , message:'Please enter amount'},
+             {pattern:/^-?(0|[1-9]\d*)(?<!-0)$/, message: 'Please enter only digit.'},
+            ],
 
     // email: [{required: true , message:'Please enter email'},
     //          {pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/ , message: 'Please enter valid email'},
@@ -32,7 +29,7 @@ const ExpenseForm = ({setexpenses}) => {
    Object.entries(formdata).forEach(([key, value])=>
    {
     validationConfig[key].some((rule)=>{
-      console.log(rule)
+      
       if(rule.required && !value){
         errorsData[key] = rule.message
         return true
@@ -64,6 +61,24 @@ const ExpenseForm = ({setexpenses}) => {
   const handleform = (e) => {
     e.preventDefault()
     if(Object.keys(formValidation(expense)).length) return 
+    if(editingrowId){
+      console.log('i am editing')
+      setexpenses((prevstate)=>
+        prevstate.map((prevexpense)=>{
+          if(prevexpense.id === editingrowId){
+            return {...expense, id: editingrowId}
+          }
+          return prevexpense
+        })
+      )
+      seteditingrowId('')
+      setExpense({
+        title:'',
+        category: '',
+        amount: ''
+       })
+      return
+    }
     setexpenses((prestate) => [...prestate ,{...expense,id:crypto.randomUUID() }])
    setExpense({
     title:'',
@@ -136,7 +151,7 @@ const handleChange = (e)=> {
                  onChange={handleChange}
                  errors={errors.email}
           /> */}
-          <button  className="add-btn btn btn-warning ">Add</button>
+          <button  className="add-btn btn btn-warning ">{editingrowId ? 'Save':'Add'}</button>
         </form>
 
       </div>
